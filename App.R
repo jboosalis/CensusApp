@@ -47,8 +47,7 @@ server <- function(input, output) {
 
 # Run app ----
 shinyApp(ui, server)
-```
-```{r}
+
 # Load packages ----
 library(shiny)
 library(maps)
