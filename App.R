@@ -1,63 +1,14 @@
 
-library(shiny)
-install.packages(c("maps", "mapproj"))
-library(maps)
-library(mapproj)
-source("CensusApp/helpers.R")
-counties <- readRDS("CensusApp/data/counties.rds")
-percent_map(counties$white, "darkgreen", "% White")
-
-
-
-library(maps)
-library(mapproj)
-source("CensusApp/helpers.R")
-counties <- readRDS("CensusApp/data/counties.rds")
-
-# User interface ----
-ui <- fluidPage(
-  titlePanel("censusVis"),
-  
-  sidebarLayout(
-    sidebarPanel(
-      helpText("Create demographic maps with 
-               information from the 2010 US Census."),
-      
-      selectInput("var", 
-                  label = "Choose a variable to display",
-                  choices = c("Percent White", "Percent Black",
-                              "Percent Hispanic", "Percent Asian"),
-                  selected = "Percent White"),
-      
-      sliderInput("range", 
-                  label = "Range of interest:",
-                  min = 0, max = 100, value = c(0, 100))
-      ),
-    
-    mainPanel(plotOutput("map"))
-  )
-  )
-
-# Server logic ----
-server <- function(input, output) {
-  output$map <- renderPlot({
-    percent_map() # some arguments 
-  })
-}
-
-# Run app ----
-shinyApp(ui, server)
-
 # Load packages ----
 library(shiny)
 library(maps)
 library(mapproj)
 
 # Load data ----
-counties <- readRDS("CensusApp/data/counties.rds")
+counties <- readRDS("data/counties.rds")
 
 # Source helper functions -----
-source("CensusApp/helpers.R")
+source("helpers.R")
 
 # User interface ----
 ui <- fluidPage(
@@ -110,5 +61,5 @@ server <- function(input, output) {
 
 # Run app ----
 shinyApp(ui, server)
-```
+
 
